@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "lKOFg+wnAdcYc88fC8NGqUXYBbMO/OXSB1rW5GcWee8=",
+  "Source": "pdc-api",
+  "BasePath": "_content/pdc-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
