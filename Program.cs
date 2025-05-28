@@ -1,5 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
 // Configura o Kestrel para escutar em todas as interfaces na porta 5000
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
@@ -9,8 +20,11 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
+builder.Services.AddDbContext<AppDbContext>();
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 // Configure o pipeline HTTP
 if (app.Environment.IsDevelopment())
@@ -41,6 +55,7 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.MapControllers();
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
