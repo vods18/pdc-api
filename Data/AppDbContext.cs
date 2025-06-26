@@ -15,7 +15,9 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Questionario>().ToTable("Questionario");
-        
+
+        modelBuilder.Entity<RegrasOcultacao>().ToTable("RegrasOcultacoes");
+
         modelBuilder.Entity<RegrasOcultacao>()
             .HasOne(ro => ro.PerguntaGatilho)
             .WithMany(q => q.RegrasOcultacaoGatilho)
@@ -27,5 +29,12 @@ public class AppDbContext : DbContext
             .WithMany(q => q.RegrasOcultacaoAlvo)
             .HasForeignKey(ro => ro.PerguntaAlvoId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Software>()
+            .HasOne(s => s.SubRequisito)
+            .WithOne(sr => sr.Software)
+            .HasForeignKey<Software>(s => s.SubRequisitoId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
+
 }

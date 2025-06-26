@@ -16,13 +16,22 @@ public class RequisitosController : ControllerBase
     public async Task<IActionResult> GetRequisitos()
     {
         var requisitos = await _context.Requisitos
+            .Include(r => r.SubRequisitos)
             .Select(r => new
             {
                 r.Id,
-                Titulo = r.Nome
+                Titulo = r.Nome,
+                SubRequisitos = r.SubRequisitos.Select(s => new
+                {
+                    s.Id,
+                    Titulo = s.Nome,
+                    Explicacao = s.Descricao,
+                    Checked = s.Check
+                }).ToList()
             })
             .ToListAsync();
 
         return Ok(requisitos);
     }
+
 }

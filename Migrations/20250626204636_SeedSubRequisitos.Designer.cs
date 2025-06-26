@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace pdc_api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250513183811_SeedSubRequisitos")]
+    [Migration("20250626204636_SeedSubRequisitos")]
     partial class SeedSubRequisitos
     {
         /// <inheritdoc />
@@ -36,7 +36,7 @@ namespace pdc_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questionario");
+                    b.ToTable("Questionario", (string)null);
                 });
 
             modelBuilder.Entity("Referencia", b =>
@@ -105,6 +105,14 @@ namespace pdc_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Fonte")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Justificativa")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -114,7 +122,8 @@ namespace pdc_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubRequisitoId");
+                    b.HasIndex("SubRequisitoId")
+                        .IsUnique();
 
                     b.ToTable("Softwares");
                 });
@@ -135,7 +144,7 @@ namespace pdc_api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("QuestionarioId")
+                    b.Property<int?>("QuestionarioId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RequisitoId")
@@ -153,7 +162,7 @@ namespace pdc_api.Migrations
             modelBuilder.Entity("Referencia", b =>
                 {
                     b.HasOne("SubRequisito", "SubRequisito")
-                        .WithMany("Referencias")
+                        .WithMany()
                         .HasForeignKey("SubRequisitoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -183,9 +192,9 @@ namespace pdc_api.Migrations
             modelBuilder.Entity("Software", b =>
                 {
                     b.HasOne("SubRequisito", "SubRequisito")
-                        .WithMany("Softwares")
-                        .HasForeignKey("SubRequisitoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("Software")
+                        .HasForeignKey("Software", "SubRequisitoId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("SubRequisito");
@@ -195,9 +204,7 @@ namespace pdc_api.Migrations
                 {
                     b.HasOne("Questionario", "Questionario")
                         .WithMany("SubRequisitos")
-                        .HasForeignKey("QuestionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionarioId");
 
                     b.HasOne("Requisito", "Requisito")
                         .WithMany("SubRequisitos")
@@ -226,9 +233,7 @@ namespace pdc_api.Migrations
 
             modelBuilder.Entity("SubRequisito", b =>
                 {
-                    b.Navigation("Referencias");
-
-                    b.Navigation("Softwares");
+                    b.Navigation("Software");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,7 +5,7 @@
 namespace pdc_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitalCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,8 +84,7 @@ namespace pdc_api.Migrations
                         name: "FK_SubRequisitos_Questionario_QuestionarioId",
                         column: x => x.QuestionarioId,
                         principalTable: "Questionario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SubRequisitos_Requisitos_RequisitoId",
                         column: x => x.RequisitoId,
@@ -121,6 +120,8 @@ namespace pdc_api.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    Justificativa = table.Column<string>(type: "TEXT", nullable: false),
+                    Fonte = table.Column<string>(type: "TEXT", nullable: false),
                     SubRequisitoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -131,7 +132,7 @@ namespace pdc_api.Migrations
                         column: x => x.SubRequisitoId,
                         principalTable: "SubRequisitos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -152,7 +153,8 @@ namespace pdc_api.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Softwares_SubRequisitoId",
                 table: "Softwares",
-                column: "SubRequisitoId");
+                column: "SubRequisitoId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubRequisitos_QuestionarioId",
@@ -168,13 +170,23 @@ namespace pdc_api.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            
-            migrationBuilder.DropTable(name: "Referencias");
-            migrationBuilder.DropTable(name: "RegrasOcultacoes");
-            migrationBuilder.DropTable(name: "Softwares");
-            migrationBuilder.DropTable(name: "SubRequisitos");
-            migrationBuilder.DropTable(name: "Questionario");
-            migrationBuilder.DropTable(name: "Requisitos");
+            migrationBuilder.DropTable(
+                name: "Referencias");
+
+            migrationBuilder.DropTable(
+                name: "RegrasOcultacoes");
+
+            migrationBuilder.DropTable(
+                name: "Softwares");
+
+            migrationBuilder.DropTable(
+                name: "SubRequisitos");
+
+            migrationBuilder.DropTable(
+                name: "Questionario");
+
+            migrationBuilder.DropTable(
+                name: "Requisitos");
         }
     }
 }
