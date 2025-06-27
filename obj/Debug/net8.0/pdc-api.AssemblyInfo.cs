@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pdc-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d0a7114819ccc2f3d223f2387b6d44e91c53310")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b009c71d2365492e92aa7e6ffdc73a61012b6d03")]
 [assembly: System.Reflection.AssemblyProductAttribute("pdc-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pdc-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
