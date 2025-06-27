@@ -19,6 +19,7 @@ namespace SeuNamespace.Controllers
         {
             var requisitos = await _context.Requisitos
                 .Include(r => r.SubRequisitos)
+                    .ThenInclude(sr => sr.Questionario)
                 .Select(r => new
                 {
                     r.Id,
@@ -28,7 +29,10 @@ namespace SeuNamespace.Controllers
                         s.Id,
                         Titulo = s.Nome,
                         Explicacao = s.Descricao,
-                        Checked = s.Check
+                        Checked = s.Check,
+                        QuestionarioResposta = s.Questionario != null 
+                            ? s.Questionario.Resposta 
+                            : null
                     }).ToList()
                 })
                 .ToListAsync();
