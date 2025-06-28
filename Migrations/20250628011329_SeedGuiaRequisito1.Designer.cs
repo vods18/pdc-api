@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace pdc_api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250627194846_InsertMissingFirstQuestionAndShiftIds")]
-    partial class InsertMissingFirstQuestionAndShiftIds
+    [Migration("20250628011329_SeedGuiaRequisito1")]
+    partial class SeedGuiaRequisito1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

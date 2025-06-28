@@ -2,6 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
 {
+     public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
     public DbSet<Requisito> Requisitos => Set<Requisito>();
     public DbSet<SubRequisito> SubRequisitos => Set<SubRequisito>();
     public DbSet<Referencia> Referencias => Set<Referencia>();
