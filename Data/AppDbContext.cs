@@ -12,7 +12,9 @@ public class AppDbContext : DbContext
     public DbSet<Software> Softwares => Set<Software>();
     public DbSet<Questionario> Questionario => Set<Questionario>();
     public DbSet<RegrasOcultacao> RegrasOcultacoes => Set<RegrasOcultacao>();
-
+    public DbSet<GuiaRequisito> GuiaRequisitos => Set<GuiaRequisito>();
+    public DbSet<TermoTecnico> TermosTecnicos   => Set<TermoTecnico>();
+    
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite("Data Source=banco.db");
 
